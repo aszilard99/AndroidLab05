@@ -52,7 +52,7 @@ class QuizController(var view: View) {
                 }
                 val answer4 = Answer(line, false)
                 Log.d("input answer", answer4.answer)
-                val answerList = listOf(answer1, answer2, answer3, answer4)
+                val answerList = mutableListOf(answer1, answer2, answer3, answer4)
                 val q = Question(question, answerList)
                 increaseCorrectAnswerNum()
                 questions.add(q)
@@ -82,4 +82,7 @@ class QuizController(var view: View) {
         totalAnswerNum++
     }
 
+    fun shuffleQuestions(){
+        questions.shuffle()
+    }
 }

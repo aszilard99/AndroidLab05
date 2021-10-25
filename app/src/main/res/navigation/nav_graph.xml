@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_questionFragment_to_quizEndFragment"
             app:destination="@id/quizEndFragment" />
+        <action
+            android:id="@+id/action_questionFragment_to_quizStart"
+            app:destination="@id/quizStart" />
     </fragment>
     <fragment
         android:id="@+id/quizEndFragment"

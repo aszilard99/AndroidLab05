@@ -47,6 +47,22 @@ class QuestionFragment : Fragment() {
 
     private val myViewModel : MyViewModel by activityViewModels()
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(
+            true // default to enabled
+        ) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_questionFragment_to_quizStart)
+                myViewModel.setCorrectAnswerNum(0)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,  // LifecycleOwner
+            callback
+        )
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,12 +80,15 @@ class QuestionFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_question, container, false)
         view?.apply {
             initializeQuestionFragment(this)
+
         }
         return view
     }
 
     private fun initializeQuestionFragment(view : View) {
         quizController = QuizController(view)
+        quizController.shuffleQuestions()
+        Log.d("questions","shuffled")
         myViewModel.setNumOfTotalAnswers(quizController.totalAnswerNum)
         Log.d("totalAnswerNum : ", "${quizController.totalAnswerNum}")
         questionTextView = view.findViewById(R.id.questionTextView)
@@ -86,6 +105,8 @@ class QuestionFragment : Fragment() {
         }
         else {
             question = tempQuestion
+            Log.d("answers", "shuffled ")
+            question.answers.shuffle()
             questionTextView.text = question.text
             rButton0.text = question.answers.get(0).answer
             rButton1.text = question.answers.get(1).answer
@@ -104,11 +125,14 @@ class QuestionFragment : Fragment() {
 
     private fun showNextQuestion(){
         evaluateAnswer()
-        val question = quizController.nextQuestion()
-        if (question == null){
+        val tmp = quizController.nextQuestion()
+        if (tmp == null){
             startQuizEndFragment()
         }
         else {
+            question = tmp
+            question.answers.shuffle()
+            Log.d("answers", "shuffled")
             questionTextView.text = question.text
             rButton0.text = question.answers.get(0).answer
             rButton1.text = question.answers.get(1).answer

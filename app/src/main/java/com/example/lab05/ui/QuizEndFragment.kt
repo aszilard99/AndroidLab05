@@ -1,5 +1,6 @@
 package com.example.lab05.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,11 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import com.example.lab05.R
 import com.example.lab05.models.MyViewModel
+import androidx.activity.OnBackPressedCallback
+
+import androidx.annotation.NonNull
+import androidx.navigation.fragment.findNavController
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +32,24 @@ class QuizEndFragment : Fragment() {
     private var param2: String? = null
     lateinit var resultTv : TextView
     private val myViewModel : MyViewModel by activityViewModels()
+
+    //on pressing back
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(
+            true // default to enabled
+        ) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_quizEndFragment_to_quizStart)
+                myViewModel.setCorrectAnswerNum(0)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,  // LifecycleOwner
+            callback
+        )
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,5 +1,6 @@
 package com.example.lab05.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.example.lab05.R
 
@@ -33,6 +35,25 @@ class QuizStart : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+    }
+
+    // a fragmenteknek saját viselkedést adtam a back gomb megnyomásakor, és
+    // valószínűleg a back stacken emiatt kavarodás van és a home fragmentből
+    // enélkül nem lépne ki rendesen back gombbal
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(
+            true // default to enabled
+        ) {
+            override fun handleOnBackPressed() {
+                //lezárja az activityt -> az appot is mert 1 activityből áll
+                activity?.finishAndRemoveTask()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,  // LifecycleOwner
+            callback
+        )
     }
 
     override fun onCreateView(

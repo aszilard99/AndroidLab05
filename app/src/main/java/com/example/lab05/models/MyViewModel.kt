@@ -19,6 +19,8 @@ class MyViewModel : ViewModel() {
     fun getNumOfTotalAnswers() : Int{
         return numOfTotalAnswers
     }
-
+    fun setCorrectAnswerNum(n : Int){
+        numOfCorrectAnswers = n
+    }
 
 }
