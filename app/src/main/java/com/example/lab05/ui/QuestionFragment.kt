@@ -1,17 +1,16 @@
 package com.example.lab05.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.NonNull
 import androidx.core.view.isVisible
@@ -38,12 +37,14 @@ class QuestionFragment : Fragment() {
     private var param2: String? = null
     lateinit var quizController : QuizController
     lateinit var questionTextView : TextView
+    lateinit var radioGroup: RadioGroup
     lateinit var rButton0 : RadioButton
     lateinit var rButton1 : RadioButton
     lateinit var rButton2 : RadioButton
     lateinit var rButton3 : RadioButton
     lateinit var nextQuestionButton : Button
     lateinit var question: Question
+    lateinit var layout : RelativeLayout
 
     private val myViewModel : MyViewModel by activityViewModels()
 
@@ -85,6 +86,7 @@ class QuestionFragment : Fragment() {
         return view
     }
 
+    @SuppressLint("ResourceType")
     private fun initializeQuestionFragment(view : View) {
         quizController = QuizController(view)
         quizController.shuffleQuestions()
@@ -92,10 +94,38 @@ class QuestionFragment : Fragment() {
         myViewModel.setNumOfTotalAnswers(quizController.totalAnswerNum)
         Log.d("totalAnswerNum : ", "${quizController.totalAnswerNum}")
         questionTextView = view.findViewById(R.id.questionTextView)
-        rButton0 = view.findViewById(R.id.button0)
-        rButton1 = view.findViewById(R.id.button1)
-        rButton2 = view.findViewById(R.id.button2)
-        rButton3 = view.findViewById(R.id.button3)
+
+        layout = view.findViewById(R.id.layout)
+
+        radioGroup = RadioGroup(view.context)
+        radioGroup.layoutParams
+
+        rButton0 = RadioButton(view.context)
+        rButton0.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        rButton0.id = 0
+
+        rButton1 = RadioButton(view.context)
+        rButton1.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        rButton1.id = 1
+
+        rButton2 = RadioButton(view.context)
+        rButton2.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        rButton2.id = 2
+
+        rButton3 = RadioButton(view.context)
+        rButton3.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        rButton3.id = 3
+
+        val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        params.setMargins(10, 0, 10, 0)
+        radioGroup.layoutParams = params
+
+        radioGroup.addView(rButton0)
+        radioGroup.addView(rButton1)
+        radioGroup.addView(rButton2)
+        radioGroup.addView(rButton3)
+
+        layout.addView(radioGroup)
 
         nextQuestionButton = view.findViewById(R.id.nextQuestionButton)
 

@@ -18,40 +18,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="200dp"
-        android:layout_height="269dp"
-        android:layout_marginTop="100dp"
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_width="398dp"
+        android:layout_height="459dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="7dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionTextView">
+        app:layout_constraintTop_toBottomOf="@+id/questionTextView"
+        tools:context=".MainActivity">
+        app:layout_constraintBottom_toBottomOf="@id/nextQuestionButton"
+        app:layout_constraintTop_toBottomOf="@+id/questionTextView"
 
-        <RadioButton
-            android:id="@+id/button0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/button1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton" />
-    </RadioGroup>
+        ></RelativeLayout>
 
     <Button
         android:id="@+id/nextQuestionButton"
@@ -60,8 +42,7 @@
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
